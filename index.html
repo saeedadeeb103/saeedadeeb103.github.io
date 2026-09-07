@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saeed Al-Maqtari — AI &amp; Robotics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F6F4;
+    --paper-2:#ECEEEA;
+    --ink:#14181F;
+    --ink-soft:#4B5560;
+    --line:#C9CDC6;
+    --line-soft:#DEE1DB;
+    --accent:#0C8F8F;
+    --accent-ink:#063f3f;
+    --tag-bg:#E7ECEA;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:var(--accent-ink);}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    padding:22px 0;
+    border-bottom:1px solid var(--line-soft);
+    position:sticky;top:0;background:rgba(245,246,244,0.92);
+    backdrop-filter:blur(6px);
+    z-index:20;
+  }
+  header .wrap{display:flex;justify-content:space-between;align-items:center;}
+  .brand{font-weight:700;font-size:16px;letter-spacing:.2px;}
+  .brand span{color:var(--accent-ink);}
+  nav{display:flex;gap:28px;}
+  nav a{
+    color:var(--ink-soft);text-decoration:none;font-size:14px;font-weight:500;
+    border-bottom:1px solid transparent;padding-bottom:2px;
+  }
+  nav a:hover{color:var(--ink);border-bottom-color:var(--accent);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 64px;position:relative;}
+  .hero-box{
+    position:relative;
+    border:1.5px solid var(--line);
+    padding:44px 40px;
+    background:var(--paper);
+  }
+  .corner{position:absolute;width:20px;height:20px;}
+  .corner::before,.corner::after{content:"";position:absolute;background:var(--accent);}
+  .corner.tl{top:-1.5px;left:-1.5px;}
+  .corner.tr{top:-1.5px;right:-1.5px;}
+  .corner.bl{bottom:-1.5px;left:-1.5px;}
+  .corner.br{bottom:-1.5px;right:-1.5px;}
+  .corner::before{width:100%;height:3px;}
+  .corner::after{width:3px;height:100%;}
+  .corner.tl::before,.corner.tl::after{top:0;left:0;}
+  .corner.tr::before{top:0;right:0;}
+  .corner.tr::after{top:0;right:0;}
+  .corner.bl::before{bottom:0;left:0;}
+  .corner.bl::after{bottom:0;left:0;}
+  .corner.br::before{bottom:0;right:0;}
+  .corner.br::after{bottom:0;right:0;}
+  .hero-box .corner{
+    transform:scale(0);
+    animation:lockon .45s cubic-bezier(.2,.9,.3,1.2) forwards;
+  }
+  .hero-box .corner.tl{animation-delay:.05s;}
+  .hero-box .corner.tr{animation-delay:.12s;}
+  .hero-box .corner.bl{animation-delay:.19s;}
+  .hero-box .corner.br{animation-delay:.26s;}
+  @keyframes lockon{to{transform:scale(1);}}
+  @media (prefers-reduced-motion:reduce){
+    .hero-box .corner{animation:none;transform:scale(1);}
+  }
+
+  .confidence{
+    position:absolute;top:-13px;left:36px;background:var(--accent);color:#fff;
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    padding:3px 9px;letter-spacing:.3px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-ink);
+    margin:0 0 14px;
+  }
+  h1{font-size:42px;line-height:1.12;margin:0 0 18px;font-weight:800;letter-spacing:-.5px;}
+  .hero p.lead{font-size:18px;color:var(--ink-soft);max-width:600px;margin:0 0 28px;}
+  .stat-row{display:flex;gap:36px;flex-wrap:wrap;margin-top:8px;}
+  .stat{font-family:'JetBrains Mono',monospace;}
+  .stat .n{font-size:22px;font-weight:600;color:var(--ink);}
+  .stat .l{font-size:12px;color:var(--ink-soft);}
+  .hero-links{margin-top:30px;display:flex;gap:20px;flex-wrap:wrap;}
+  .hero-links a{
+    font-size:14px;font-weight:600;text-decoration:none;color:var(--ink);
+    border-bottom:1.5px solid var(--accent);padding-bottom:2px;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:64px 0;border-bottom:1px solid var(--line-soft);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:36px;}
+  .sec-num{font-family:'JetBrains Mono',monospace;color:var(--accent-ink);font-size:14px;}
+  .sec-title{font-size:26px;font-weight:700;margin:0;}
+
+  /* ---------- PROJECTS ---------- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media (max-width:760px){.grid{grid-template-columns:1fr;}}
+  .card{
+    position:relative;border:1.5px solid var(--line);padding:26px 24px 22px;
+    background:var(--paper);transition:border-color .15s ease;
+  }
+  .card:hover{border-color:var(--accent);}
+  .card .corner{width:14px;height:14px;}
+  .card .corner::before{height:2.5px;}
+  .card .corner::after{width:2.5px;}
+  .card-metric{
+    position:absolute;top:-11px;right:18px;background:var(--ink);color:#fff;
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+    padding:2px 8px;
+  }
+  .card h3{font-size:18px;margin:6px 0 8px;font-weight:700;}
+  .card p{font-size:14.5px;color:var(--ink-soft);margin:0 0 16px;}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .tag{
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;background:var(--tag-bg);
+    color:var(--accent-ink);padding:3px 8px;border:1px solid var(--line-soft);
+  }
+  .card-links{margin-top:14px;display:flex;gap:16px;}
+  .card-links a{font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--accent);}
+
+  /* ---------- EXPERIENCE ---------- */
+  .log{border-left:1.5px solid var(--line);padding-left:0;}
+  .log-item{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:18px 0 18px 24px;position:relative;border-bottom:1px solid var(--line-soft);}
+  .log-item:last-child{border-bottom:none;}
+  .log-item::before{
+    content:"";position:absolute;left:-5.5px;top:24px;width:9px;height:9px;
+    background:var(--paper);border:2px solid var(--accent);border-radius:50%;
+  }
+  .log-date{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);padding-top:2px;}
+  .log-body h4{margin:0 0 4px;font-size:16px;font-weight:700;}
+  .log-body .org{font-size:13.5px;color:var(--accent-ink);font-weight:600;margin-bottom:8px;}
+  .log-body p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+
+  /* ---------- SKILLS ---------- */
+  .skill-group{margin-bottom:22px;}
+  .skill-group h4{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent-ink);
+    margin:0 0 10px;font-weight:600;
+  }
+  .skill-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .skill-tags .tag{font-size:13px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;}
+  .contact-grid p{max-width:440px;color:var(--ink-soft);font-size:15px;}
+  .contact-links{display:flex;flex-direction:column;gap:10px;}
+  .contact-links a{font-size:15px;font-weight:600;text-decoration:none;color:var(--ink);}
+  .contact-links a:hover{color:var(--accent-ink);}
+  footer{padding:28px 0;text-align:left;}
+  footer p{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);margin:0;}
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width:600px){
+    header .wrap{flex-direction:column;align-items:flex-start;gap:10px;}
+    nav{gap:16px;flex-wrap:wrap;}
+    .hero{padding:44px 0 40px;}
+    .hero-box{padding:34px 20px 26px;}
+    .confidence{
+      left:16px;top:-11px;font-size:10.5px;padding:3px 7px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      max-width:calc(100% - 32px);
+    }
+    h1{font-size:30px;}
+    .hero p.lead{font-size:16px;}
+    .stat-row{gap:22px;}
+    .grid{grid-template-columns:1fr;}
+    .log-item{grid-template-columns:1fr;gap:6px;padding-left:20px;}
+    .log-item::before{top:6px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Saeed <span>Al-Maqtari</span></div>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-box">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <div class="confidence">ai_&amp;_robotics_engineer &nbsp;0.97</div>
+      <p class="eyebrow">MSc AI &amp; Robotics, Nürnberg, Germany</p>
+      <h1>I build systems that see, plan, and act &mdash; then I check whether they actually work.</h1>
+      <p class="lead">Computer vision, sensor fusion, reinforcement learning, and LLM pipelines, taken from a research idea to something that runs in production and holds up when someone else tests it.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="n">59</div><div class="l">models benchmarked</div></div>
+        <div class="stat"><div class="n">90%</div><div class="l">live detection accuracy</div></div>
+        <div class="stat"><div class="n">53K+</div><div class="l">training samples built</div></div>
+        <div class="stat"><div class="n">95%</div><div class="l">forecasting accuracy</div></div>
+      </div>
+      <div class="hero-links">
+        <a href="#projects">See the projects</a>
+        <a href="mailto:saeedbenadeeb@gmail.com">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Projects</h2></div>
+    <div class="grid">
+
+      <div class="card">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="card-metric">83.6% → 97.0% exec.</div>
+        <h3>PlotCraft: text-to-diagram generation</h3>
+        <p>Fine-tuned Qwen2.5-3B with LoRA to turn a plain-language description into executable Matplotlib code. Built a 53K+ sample dataset from scraped and synthesized sources, then applied DR-GRPO post-training with a DINOv2 reward model &mdash; which improved execution reliability and human-eval preference internally, but didn't generalize to the external VisPlotBench benchmark. Co-authored with two other researchers at UTN.</p>
+        <div class="tags">
+          <span class="tag">LoRA / SFT</span><span class="tag">DR-GRPO</span><span class="tag">DINOv2</span><span class="tag">HPC A40</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/saeedadeeb103/PYVEC_Dataset.git" target="_blank" rel="noopener">Code</a>
+          <a href="https://huggingface.co/saeedbenadeeb/NLG_Project" target="_blank" rel="noopener">Dataset</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="card-metric">90.0% detection</div>
+        <h3>Multi-camera industrial safety monitoring</h3>
+        <p>Real-time detection, tracking, and re-identification across multiple live camera streams &mdash; still running in daily production use. Built and shipped the whole thing myself: model pipeline, alerting, and a 6-interface Flask dashboard for plant operators.</p>
+        <div class="tags">
+          <span class="tag">YOLOv8</span><span class="tag">ByteTrack</span><span class="tag">OSNet</span><span class="tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="card-metric">π0 vs π0.5</div>
+        <h3>Robot motion planning for magnetic drug targeting</h3>
+        <p>Fine-tuned and benchmarked two vision-language-action models against a classical baseline planner for a safety-constrained robotics task, then built a MuJoCo digital twin from scratch to collect training data without needing physical hardware runs.</p>
+        <div class="tags">
+          <span class="tag">VLA / π0.5</span><span class="tag">MuJoCo</span><span class="tag">Imitation Learning</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="card-metric">agentic RAG</div>
+        <h3>NatterDoc: document intelligence platform</h3>
+        <p>An agentic retrieval-augmented generation system for document Q&amp;A and summarization &mdash; multi-step retrieval and tool-calling with LangChain, a FAISS vector index, and PyMuPDF-based preprocessing, wired into a React/Next.js frontend with real-time streaming.</p>
+        <div class="tags">
+          <span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">PyMuPDF</span><span class="tag">Next.js</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="card-metric">95.0% accuracy</div>
+        <h3>PV power forecasting &amp; imputation</h3>
+        <p>Predicted future solar power generation from historical weather and output time series, and imputed missing sensor readings, for a project with PETRONAS and Universiti Teknologi Malaysia.</p>
+        <div class="tags">
+          <span class="tag">XGBoost</span><span class="tag">Time Series</span><span class="tag">Imputation</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="card-metric">-32.4% losses</div>
+        <h3>Production management platform</h3>
+        <p>A full-stack monitoring platform for a live manufacturing client &mdash; automated weekly reporting, 6 KPI dashboards, and AI-assisted anomaly analysis, deployed on Railway with ongoing client support.</p>
+        <div class="tags">
+          <span class="tag">Flask</span><span class="tag">SQL</span><span class="tag">Railway</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Experience</h2></div>
+    <div class="log">
+
+      <div class="log-item">
+        <div class="log-date">2024 &ndash; 2027</div>
+        <div class="log-body">
+          <h4>MSc, AI &amp; Robotics</h4>
+          <div class="org">University of Technology Nuremberg (UTN)</div>
+          <p>GPA 1.7. Coursework in machine learning, deep learning, LLMs, and multimodal foundation models.</p>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="log-date">Apr &ndash; Jun 2023</div>
+        <div class="log-body">
+          <h4>R&amp;D AI Intern, Model Benchmarking</h4>
+          <div class="org">ViTrox Corporation, Penang, Malaysia</div>
+          <p>Benchmarked 59 production inspection models, improving accuracy by up to 5% and inference speed by 3x through quantization-aware training. Built an automated data-annotation pipeline to speed up labeling.</p>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="log-date">Feb &ndash; Apr 2023</div>
+        <div class="log-body">
+          <h4>R&amp;D AI Intern</h4>
+          <div class="org">Doctor On Call, Kuala Lumpur, Malaysia</div>
+          <p>Deployed an AI chatbot backend for a telehealth platform serving 1M+ users, and built a StyleGAN3 synthetic-data pipeline to expand a constrained healthcare dataset.</p>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="log-date">Jul &ndash; Oct 2021</div>
+        <div class="log-body">
+          <h4>AI Intern</h4>
+          <div class="org">Centre of AI and Robotics, UTM (with DF Automation)</div>
+          <p>Fused IMU and depth-camera data into a 3D map to resolve multi-AGV path conflicts in a warehouse setting, feeding a ROS-based localization and navigation stack.</p>
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="log-date">2019 &ndash; 2023</div>
+        <div class="log-body">
+          <h4>BEng, Electrical Engineering (Mechatronics)</h4>
+          <div class="org">Universiti Teknologi Malaysia (UTM) &mdash; First Class Honours</div>
+          <p>GPA 3.87/4.00.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Skills</h2></div>
+
+    <div class="skill-group">
+      <h4>Computer Vision</h4>
+      <div class="skill-tags">
+        <span class="tag">YOLOv5 / v8 / X</span><span class="tag">ByteTrack / DeepSORT</span><span class="tag">OSNet Re-ID</span><span class="tag">Quantization &amp; Pruning</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>RL &amp; LLMs</h4>
+      <div class="skill-tags">
+        <span class="tag">PPO</span><span class="tag">DPO</span><span class="tag">GRPO / DR-GRPO</span><span class="tag">LoRA / QLoRA / DoRA / VeRA</span><span class="tag">RAG &amp; Agents</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>Robotics &amp; Sensor Fusion</h4>
+      <div class="skill-tags">
+        <span class="tag">ROS</span><span class="tag">MuJoCo</span><span class="tag">IMU / LiDAR / Depth Camera</span><span class="tag">Vision-Language-Action</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>Engineering</h4>
+      <div class="skill-tags">
+        <span class="tag">Python</span><span class="tag">C/C++</span><span class="tag">SQL</span><span class="tag">Docker</span><span class="tag">Flask / FastAPI</span><span class="tag">HPC (A40)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Contact</h2></div>
+    <div class="contact-grid">
+      <p>Based in Nürnberg, Germany. Open to internships and working-student roles in computer vision, robotics, and applied ML/RL research.</p>
+      <div class="contact-links">
+        <a href="mailto:saeedbenadeeb@gmail.com">saeedbenadeeb@gmail.com</a>
+        <a href="https://github.com/saeedadeeb103" target="_blank" rel="noopener">github.com/saeedadeeb103</a>
+        <a href="https://linkedin.com/in/saeed-adeeb" target="_blank" rel="noopener">linkedin.com/in/saeed-adeeb</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 Saeed Al-Maqtari</p>
+  </div>
+</footer>
+
+</body>
+</html>
