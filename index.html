@@ -119,23 +119,26 @@
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
   @media (max-width:760px){.grid{grid-template-columns:1fr;}}
   .card{
-    position:relative;border:1.5px solid var(--line);padding:26px 24px 22px;
-    background:var(--paper);transition:border-color .15s ease;
+    position:relative;display:flex;flex-direction:column;
+    border:1.5px solid var(--line);padding:26px 24px 22px;
+    background:var(--paper);transition:border-color .15s ease,transform .15s ease;
   }
-  .card:hover{border-color:var(--accent);}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px);}
   .card .corner{width:14px;height:14px;}
   .card .corner::before{height:2.5px;}
   .card .corner::after{width:2.5px;}
   .card-metric{
     position:absolute;top:-11px;right:18px;background:var(--ink);color:#fff;
     font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
-    padding:2px 8px;
+    padding:2px 8px;white-space:nowrap;
   }
-  .card h3{font-size:18px;margin:6px 0 8px;font-weight:700;}
-  .card p{font-size:14.5px;color:var(--ink-soft);margin:0 0 16px;}
+  .card h3{font-size:17.5px;margin:6px 0 10px;font-weight:700;line-height:1.3;}
+  .card p{font-size:14px;color:var(--ink-soft);margin:0 0 16px;line-height:1.65;}
+  .card p strong{color:var(--ink);font-weight:600;}
+  .card-foot{margin-top:auto;padding-top:2px;}
   .tags{display:flex;flex-wrap:wrap;gap:7px;}
   .tag{
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;background:var(--tag-bg);
+    font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--tag-bg);
     color:var(--accent-ink);padding:3px 8px;border:1px solid var(--line-soft);
   }
   .card-links{margin-top:14px;display:flex;gap:16px;}
@@ -238,13 +241,15 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">83.6% → 97.0% exec.</div>
         <h3>PlotCraft: text-to-diagram generation</h3>
-        <p>Fine-tuned Qwen2.5-3B with LoRA to turn a plain-language description into executable Matplotlib code. Built a 53K+ sample dataset from scraped and synthesized sources, then applied DR-GRPO post-training with a DINOv2 reward model &mdash; which improved execution reliability and human-eval preference internally, but didn't generalize to the external VisPlotBench benchmark. Co-authored with two other researchers at UTN.</p>
-        <div class="tags">
-          <span class="tag">LoRA / SFT</span><span class="tag">DR-GRPO</span><span class="tag">DINOv2</span><span class="tag">HPC A40</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/saeedadeeb103/PYVEC_Dataset.git" target="_blank" rel="noopener">Code</a>
-          <a href="https://huggingface.co/saeedbenadeeb/NLG_Project" target="_blank" rel="noopener">Dataset</a>
+        <p><strong></strong>Fine-tuned Qwen2.5-3B to turn plain text into executable Matplotlib code</strong>, on a 53K+ sample dataset built from scraped and synthesized sources. DR-GRPO post-training with a DINOv2 reward model improved execution and human-eval preference internally, though gains didn't generalize to the external VisPlotBench benchmark. Co-authored with two other UTN researchers.</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">LoRA / SFT</span><span class="tag">DR-GRPO</span><span class="tag">DINOv2</span><span class="tag">HPC A40</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/saeedadeeb103/PYVEC_Dataset.git" target="_blank" rel="noopener">Code</a>
+            <a href="https://huggingface.co/saeedbenadeeb/NLG_Project" target="_blank" rel="noopener">Dataset</a>
+          </div>
         </div>
       </div>
 
@@ -252,9 +257,11 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">90.0% detection</div>
         <h3>Multi-camera industrial safety monitoring</h3>
-        <p>Real-time detection, tracking, and re-identification across multiple live camera streams &mdash; still running in daily production use. Built and shipped the whole thing myself: model pipeline, alerting, and a 6-interface Flask dashboard for plant operators.</p>
-        <div class="tags">
-          <span class="tag">YOLOv8</span><span class="tag">ByteTrack</span><span class="tag">OSNet</span><span class="tag">Docker</span>
+        <p><strong>Real-time detection, tracking, and re-identification across multiple live camera streams</strong>, running in daily production use. Built and shipped solo: model pipeline, alerting, and a 6-interface Flask dashboard for plant operators.</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">YOLOv8</span><span class="tag">ByteTrack</span><span class="tag">OSNet</span><span class="tag">Docker</span>
+          </div>
         </div>
       </div>
 
@@ -262,14 +269,16 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">APF 100% · VLA 40%</div>
         <h3>Robot motion planning for magnetic drug targeting</h3>
-        <p>Built a MuJoCo digital twin of a Staubli TX200 robot for SEON-Klinik's magnetic drug targeting research, then fine-tuned Physical Intelligence's &pi;0.5 vision-language-action model via LoRA on 44K collected demonstrations. Ran matched 50-rollout evaluations against a classical APF baseline: the baseline hit 100% task success with zero collisions, while the early-checkpoint VLA policy reached 40% with a clear directional bias &mdash; an honest signal for where further training is needed.</p>
-        <div class="tags">
-          <span class="tag">&pi;0.5 / VLA</span><span class="tag">LoRA</span><span class="tag">MuJoCo</span><span class="tag">LeRobot</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/Start95/robot-motion-planning-for-magnetic-drug-targeting" target="_blank" rel="noopener">Code</a>
-          <a href="https://huggingface.co/datasets/saeedbenadeeb/LIT_Magnatic_Drug_Targeting_TX200" target="_blank" rel="noopener">Dataset</a>
-          <a href="https://huggingface.co/saeedbenadeeb/robot-motion-planning_tx200" target="_blank" rel="noopener">Checkpoints</a>
+        <p><strong>Built a MuJoCo digital twin of a Staubli TX200 robot</strong> for SEON-Klinik's magnetic drug targeting research, then fine-tuned Physical Intelligence's &pi;0.5 VLA model via LoRA on 44K demonstrations. In matched 50-rollout evaluations, a classical APF baseline hit 100% success with zero collisions; the early-checkpoint VLA reached 40% with a directional bias &mdash; an honest signal for where more training is needed.</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">&pi;0.5 / VLA</span><span class="tag">LoRA</span><span class="tag">MuJoCo</span><span class="tag">LeRobot</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/Start95/robot-motion-planning-for-magnetic-drug-targeting" target="_blank" rel="noopener">Code</a>
+            <a href="https://huggingface.co/datasets/saeedbenadeeb/LIT_Magnatic_Drug_Targeting_TX200" target="_blank" rel="noopener">Dataset</a>
+            <a href="https://huggingface.co/saeedbenadeeb/robot-motion-planning_tx200" target="_blank" rel="noopener">Checkpoints</a>
+          </div>
         </div>
       </div>
 
@@ -277,9 +286,11 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">agentic RAG</div>
         <h3>NatterDoc: document intelligence platform</h3>
-        <p>An agentic retrieval-augmented generation system for document Q&amp;A and summarization &mdash; multi-step retrieval and tool-calling with LangChain, a FAISS vector index, and PyMuPDF-based preprocessing, wired into a React/Next.js frontend with real-time streaming.</p>
-        <div class="tags">
-          <span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">PyMuPDF</span><span class="tag">Next.js</span>
+        <p><strong>A retrieval-augmented generation system for document Q&amp;A and summarization.</strong> Multi-step retrieval and tool-calling with LangChain, a FAISS vector index, and PyMuPDF-based preprocessing, wired into a React/Next.js frontend with real-time streaming.</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">PyMuPDF</span><span class="tag">Next.js</span>
+          </div>
         </div>
       </div>
 
@@ -287,12 +298,14 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">42.6&ndash;55.2% vs 1.3&ndash;4.4%</div>
         <h3>Diagnosing &amp; fixing "time-blindness" in VLMs</h3>
-        <p>Studied why vision-language models fail to perceive content that exists only in motion &mdash; not in any single frame &mdash; across Qwen2.5-VL (3B/7B) and LLaVA-NeXT (7B). Built a training-free Temporal Decoding Preprocessor that uses optical flow and motion clustering to convert hidden temporal patterns into a static image any existing VLM can already read. On SpookyBench, this raised accuracy to 42.6&ndash;55.2% versus 1.3&ndash;4.4% for native-video baselines, and introduced the Temporal Dependency Score to confirm the gain is genuinely temporal (0.80&ndash;0.98) rather than a shortcut.</p>
-        <div class="tags">
-          <span class="tag">Optical Flow</span><span class="tag">SpookyBench</span><span class="tag">TVBench</span><span class="tag">Training-free</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/saeedadeeb103/Temporal-Decoding-Preprocessor-MMFM-project" target="_blank" rel="noopener">Code</a>
+        <p><strong>Studied why vision-language models can't perceive content that exists only in motion</strong>, across Qwen2.5-VL (3B/7B) and LLaVA-NeXT (7B). Built a training-free Temporal Decoding Preprocessor &mdash; optical flow plus motion clustering &mdash; that lets any existing VLM read hidden temporal patterns as a static image. On SpookyBench this raised accuracy to 42.6&ndash;55.2% vs. 1.3&ndash;4.4% for native-video baselines, confirmed genuinely temporal by a new Temporal Dependency Score (0.80&ndash;0.98).</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">Optical Flow</span><span class="tag">SpookyBench</span><span class="tag">TVBench</span><span class="tag">Training-free</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/saeedadeeb103/Temporal-Decoding-Preprocessor-MMFM-project" target="_blank" rel="noopener">Code</a>
+          </div>
         </div>
       </div>
 
@@ -300,9 +313,11 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">95.0% accuracy</div>
         <h3>PV power forecasting &amp; imputation</h3>
-        <p>Predicted future solar power generation from historical weather and output time series, and imputed missing sensor readings, for a project with PETRONAS and Universiti Teknologi Malaysia.</p>
-        <div class="tags">
-          <span class="tag">XGBoost</span><span class="tag">Time Series</span><span class="tag">Imputation</span>
+        <p><strong>Predicted future solar power generation from historical weather and output time series</strong>, and imputed missing sensor readings, for a project with PETRONAS and Universiti Teknologi Malaysia.</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">XGBoost</span><span class="tag">Time Series</span><span class="tag">Imputation</span>
+          </div>
         </div>
       </div>
 
@@ -310,9 +325,11 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">-32.4% losses</div>
         <h3>Production management platform</h3>
-        <p>A full-stack monitoring platform for a live manufacturing client &mdash; automated weekly reporting, 6 KPI dashboards, and AI-assisted anomaly analysis, deployed on Railway with ongoing client support.</p>
-        <div class="tags">
-          <span class="tag">Flask</span><span class="tag">SQL</span><span class="tag">Railway</span>
+        <p><strong>A full-stack monitoring platform for a live manufacturing client.</strong> Automated weekly reporting, 6 KPI dashboards, and AI-assisted anomaly analysis, deployed on Railway with ongoing client support.</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">Flask</span><span class="tag">SQL</span><span class="tag">Railway</span>
+          </div>
         </div>
       </div>
 
@@ -320,12 +337,14 @@
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <div class="card-metric">in progress</div>
         <h3>3D scene reconstruction from photos</h3>
-        <p>Building a multimodal pipeline that turns photos or video into an interactive, semantically-understood 3D Gaussian-splat scene &mdash; Depth Anything 3 for geometry, Gaussian splatting for radiance, and SAM 3 for semantic segmentation, delivered through a three.js web viewer. Currently mid-build: the real cluster reconstruction run is the remaining gate.</p>
-        <div class="tags">
-          <span class="tag">Depth Anything 3</span><span class="tag">Gaussian Splatting</span><span class="tag">SAM 3</span><span class="tag">three.js</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/saeedadeeb103/3d-scene-reconstruction" target="_blank" rel="noopener">Code</a>
+        <p><strong>Building a multimodal pipeline that turns photos or video into an interactive 3D scene.</strong> Depth Anything 3 for geometry, Gaussian splatting for radiance, SAM 3 for semantic segmentation, delivered through a three.js viewer. Mid-build &mdash; the real cluster reconstruction run is the remaining gate.</p>
+        <div class="card-foot">
+          <div class="tags">
+            <span class="tag">Depth Anything 3</span><span class="tag">Gaussian Splatting</span><span class="tag">SAM 3</span><span class="tag">three.js</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/saeedadeeb103/3d-scene-reconstruction" target="_blank" rel="noopener">Code</a>
+          </div>
         </div>
       </div>
 
